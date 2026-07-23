@@ -50,11 +50,17 @@ export const fetchRecommendations = async (city: string, current: CurrentWeather
       },
       body: JSON.stringify({ city, current, daily }),
     });
-    const data = await res.json();
-    if (!res.ok) {
-      throw new Error(data.error || 'Failed to fetch recommendations');
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to fetch recommendations');
+      }
+      return data.recommendations || [];
+    } else {
+      await res.text(); // consume the body
+      throw new Error('API endpoint not found or returned invalid format. Ensure the backend is properly deployed.');
     }
-    return data.recommendations || [];
   } catch (error: any) {
     console.error(error);
     return [error.message || 'Could not fetch recommendations.'];
