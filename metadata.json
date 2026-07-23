@@ -1,0 +1,6 @@
+{
+  "name": "Weather Intelligence App",
+  "description": "A weather application that fetches current and 7-day forecast data from Open-Meteo, provides AI-driven planning recommendations, and includes simulated local push notifications for severe weather alerts.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
